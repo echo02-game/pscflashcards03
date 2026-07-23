@@ -1,0 +1,23 @@
+{
+  "name": "普通話水平測試難點字詞詞卡練習",
+  "short_name": "PSC詞卡",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFEBD3",
+  "theme_color": "#67A2C5",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

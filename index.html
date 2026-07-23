@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>普通話水平測試｜難點字詞記憶詞卡</title>
+  <meta name="description" content="普通話水平測試｜難點字詞記憶詞卡" />
+  <meta name="theme-color" content="#67A2C5" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <style>
+    :root{
+      --coral:#FFB6A6;
+      --cream:#FFEBD3;
+      --mint:#9BCEC1;
+      --blue:#67A2C5;
+      --panel:#FFFFFF;
+      --panel-soft:#FFF8EE;
+      --line:#EAD0BD;
+      --text:#25231F;
+      --muted:#756B61;
+      --soft-muted:#B19F91;
+      --shadow:0 18px 42px rgba(103,162,197,.18);
+      --radius:30px;
+    }
+    *{box-sizing:border-box}
+    html,body{min-height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 9% 8%, rgba(255,182,166,.42), transparent 30%),
+        radial-gradient(circle at 92% 18%, rgba(155,206,193,.40), transparent 32%),
+        linear-gradient(180deg, #fff 0%, var(--cream) 76%);
+      font-family:"Yuanti SC","YouYuan","幼圆","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,sans-serif;
+    }
+    button,input{font:inherit}
+    button{border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid rgba(103,162,197,.34);outline-offset:3px}
+    .app{width:min(920px,100%);min-height:100vh;margin:0 auto;padding:24px 18px 16px;display:flex;flex-direction:column;gap:18px}
+    header{display:flex;align-items:center;justify-content:center;gap:14px;padding-top:4px;text-align:left}
+    .app-icon{animation: floatIcon 3s ease-in-out infinite;width:64px;height:64px;border-radius:18px;flex:none;filter:drop-shadow(0 10px 18px rgba(103,162,197,.20))}
+    .header-text{min-width:0}
+    h1{margin:0;letter-spacing:-.04em}.title-kicker{display:block;font-size:clamp(15px,2.8vw,21px);line-height:1.1;color:var(--soft-muted);font-weight:800;letter-spacing:.02em}.title-main{display:block;font-size:clamp(27px,4.8vw,43px);line-height:1.08;color:var(--text);font-weight:900}
+    .subtitle{margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.45}.source-note{display:inline-block;margin-top:2px;color:var(--blue);font-weight:800}
+    main{flex:1;display:grid;align-items:center}
+    .panel{width:100%;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(22px,4vw,36px)}
+    .screen{display:none;animation:fade .18s ease both}.screen.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    h2{font-size:clamp(28px,5.5vw,44px);line-height:1.12;margin:0 0 12px;font-weight:900;letter-spacing:-.04em}
+    h3{font-size:18px;margin:20px 0 10px;font-weight:900}
+    p{line-height:1.7}.lead{font-size:17px;color:var(--muted);margin:0 0 24px;max-width:720px}
+    .home-actions,.choice-grid,.finish-actions{display:grid;gap:12px}.home-actions{grid-template-columns:1fr 1fr;max-width:650px}.choice-grid{grid-template-columns:repeat(3,1fr);margin-top:10px}.range-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 6px}
+    .btn{min-height:56px;border-radius:20px;padding:13px 18px;background:var(--blue);color:#fff;font-weight:900;border:3px solid var(--blue);box-shadow:0 8px 20px rgba(103,162,197,.3);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease,filter .2s ease}
+    .btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 24px rgba(103,162,197,.4);filter:saturate(1.1)}
+    .btn.secondary{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 8px 20px rgba(255,182,166,.3)}
+    .btn.ghost{background:var(--cream);color:#AA7E56;border-color:var(--cream);box-shadow:0 4px 12px rgba(255,235,211,.5)}.btn.small{min-height:44px;border-radius:12px;padding:9px 13px;font-size:15px}
+    .range-btn{min-height:50px;border-radius:16px;background:#E7F2EF;color:#528777;border:3px solid #E7F2EF;box-shadow:none;transition:all .2s ease}.range-btn.active{background:var(--mint);border-color:var(--mint);color:#fff;box-shadow:0 8px 20px rgba(155,206,193,.4);transform:translateY(-2px)}
+    .count-box{display:flex;gap:10px;align-items:center}.count-box input{width:100%;min-height:56px;border:3px solid var(--cream);border-radius:20px;padding:0 16px;background:var(--cream);color:var(--text);font-weight:800;transition:border-color .2s ease}
+    .guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;border-top:1px solid var(--line);padding-top:13px}
+    .guide{color:var(--muted);font-size:12px}
+    .guide strong{font-size:12px;font-weight:800;color:var(--muted)}
+    .guide-compact{min-width:0}
+    details{background:rgba(255,255,255,.6);border:2px solid var(--cream);border-radius:11px;padding:7px 9px;margin-top:7px}
+    summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--muted)}
+    .guide ol{margin:7px 0 0;padding-left:18px;line-height:1.48}.guide li+li{margin-top:2px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}.progress{color:var(--muted);font-weight:800}.mode-label{color:#4D88AA;font-weight:900;background:rgba(155,206,193,.36);border:1px solid var(--mint);border-radius:999px;padding:7px 12px}
+    .card-wrap{max-width:620px;margin:0 auto;perspective:1200px}.flashcard{position:relative;width:100%;min-height:380px;transform-style:preserve-3d;transition:transform .35s ease;cursor:pointer}.flashcard.flipped{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:28px;border-radius:24px;background:#fff;border:3px solid var(--cream);box-shadow:0 12px 28px rgba(37,34,29,.06);backface-visibility:hidden;overflow:hidden}.back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff 0%,#F8FBF6 100%)}
+    .term{font-size:clamp(52px,13vw,96px);font-weight:900;line-height:1.08;letter-spacing:.02em}.hint{position:absolute;bottom:18px;color:var(--muted);font-size:14px}.pinyin{font-size:clamp(28px,6.5vw,50px);font-weight:900;color:#4D88AA;line-height:1.25}.back-term{font-size:clamp(38px,9vw,72px);font-weight:900;margin-top:12px}.speak{margin-top:8px}
+    .card-nav{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:620px;margin:16px auto 0}.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:620px;margin:16px auto 0}.btn.block{display:block;width:100%;max-width:620px;margin:12px auto 0}.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;filter:none}.mini-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}.empty{text-align:center;padding:28px 8px;color:var(--muted)}
+
+    .celebration-card{position:relative;max-width:620px;margin:0 auto;text-align:center;background:linear-gradient(180deg,#fff 0%,#FFF5E8 100%);border:1px solid var(--coral);border-radius:28px;padding:34px 22px 28px;box-shadow:0 22px 48px rgba(103,162,197,.20);overflow:hidden;animation:popIn .34s cubic-bezier(.2,1.3,.35,1) both}
+    .celebration-badge{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;background:var(--blue);color:white;font-size:42px;font-weight:900;box-shadow:0 14px 24px rgba(103,162,197,.28);animation:bounceTiny 1.2s ease-in-out infinite}
+    .celebration-card h2{margin-bottom:10px;color:var(--text)}
+    .celebration-card .lead{margin:0 auto;color:var(--muted)}
+    .celebration-actions{max-width:620px;margin:16px auto 0}
+    .confetti span{position:absolute;width:10px;height:18px;border-radius:4px;top:18px;opacity:.95;animation:fall 1.8s ease-in-out infinite}
+    .confetti span:nth-child(1){left:12%;background:var(--blue);animation-delay:0s}.confetti span:nth-child(2){left:28%;background:var(--sky);animation-delay:.18s}.confetti span:nth-child(3){right:24%;background:var(--taupe);animation-delay:.08s}.confetti span:nth-child(4){right:12%;background:var(--mint);animation-delay:.28s}.confetti span:nth-child(5){left:50%;background:var(--coral);animation-delay:.36s}
+    @keyframes popIn{from{opacity:0;transform:scale(.88) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    @keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes bounceTiny{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+    @keyframes fall{0%{transform:translateY(-12px) rotate(0deg)}55%{transform:translateY(18px) rotate(24deg)}100%{transform:translateY(-12px) rotate(0deg)}}
+    .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;background:var(--text);color:white;padding:10px 15px;border-radius:999px;font-weight:800;transition:.2s ease;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    footer{text-align:center;color:var(--muted);font-size:13px;line-height:1.65;padding:4px 8px 0}footer span{display:block}.pronunciation-notes{margin-bottom:8px}.copyright-line{color:var(--soft-muted);font-size:12px;margin-top:6px}.footer-note{display:block;margin-top:4px}
+
+    .top-banner {
+      background: #FFFCE1;
+      color: var(--text);
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(155,206,193,0.3);
+      position: relative;
+      z-index: 100;
+    }
+    .top-banner a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      margin-left: 6px;
+    }
+    .top-banner a:hover {
+      color: #4D88AA;
+    }
+    @media (max-width:720px){
+      .app{padding:22px 16px 14px}header{justify-content:flex-start}.app-icon{animation: floatIcon 3s ease-in-out infinite;width:56px;height:56px;border-radius:15px}.subtitle{font-size:14px}.panel{border-radius:20px}.home-actions,.choice-grid,.finish-actions,.range-grid{grid-template-columns:1fr}.home-actions .btn{min-height:56px;border-radius:20px;padding:13px 18px;background:var(--blue);color:#fff;font-weight:900;border:3px solid var(--blue);box-shadow:0 8px 20px rgba(103,162,197,.3);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease,filter .2s ease}.guide-grid{grid-template-columns:1fr;margin-top:8px;padding-top:11px}.guide{font-size:12px}.guide strong,summary{font-size:12px}details{padding:7px 9px}.flashcard{min-height:340px}.term{font-size:clamp(48px,17vw,74px)}
+    }
+    @media (max-width:420px){.title-kicker{font-size:14px}.title-main{font-size:25px}.celebration-card{padding:30px 18px 24px}.card-actions{grid-template-columns:1fr}.card-nav{grid-template-columns:1fr}.face{padding:24px 18px}.toast{width:calc(100% - 36px);text-align:center}footer{font-size:12px}}
+    .home-actions-3{grid-template-columns:repeat(3,1fr);max-width:760px;align-items:start}
+    .btn.freq{background:var(--mint);color:#fff;border-color:var(--mint);box-shadow:0 8px 20px rgba(155,206,193,.35)}
+    .btn.master{background:var(--mint);color:#fff;border-color:var(--mint);box-shadow:0 8px 20px rgba(155,206,193,.35)}
+    .freq-note{margin:10px 2px 0;color:var(--muted);font-size:13px;line-height:1.55;text-align:center}
+    .mastered-entry{margin-top:14px}
+    .freq-note-left{text-align:left;margin-top:6px}
+    .pinyin-note{margin-top:6px;color:var(--blue);font-size:13px;font-weight:800}
+    .pinyin-note:empty{display:none}
+    .mastered-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .mastered-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:var(--panel-soft);border:2px solid var(--cream);border-radius:16px}
+    .mastered-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+    .mw-term{font-size:20px;font-weight:900}
+    .mw-pinyin{font-size:14px;color:#4D88AA;font-weight:800}
+    .mastered-row .btn.small{flex:none}
+    @media (max-width:720px){
+      .home-actions-3{grid-template-columns:1fr}
+      .home-actions .btn.secondary{background:var(--coral);border-color:var(--coral);box-shadow:0 8px 20px rgba(255,182,166,.3)}
+      .home-actions .btn.master{background:var(--mint);border-color:var(--mint);box-shadow:0 8px 20px rgba(155,206,193,.35)}
+    }
+  </style>
+</head>
+<body>
+  <div class="top-banner">短文難點字詞練習詞卡（真人發音示範） <a href="https://echo02-game.github.io/pscwordshub/" target="_blank" rel="noopener noreferrer">普通話水平測試 - 朗讀作品難點字詞練習</a></div>
+  <div class="app">
+    <header>
+      <img class="app-icon" src="./icons/icon-192.png" alt="普通話詞卡圖示" />
+      <div class="header-text">
+        <h1><span class="title-kicker">普通話水平測試</span><span class="title-main">難點字詞記憶詞卡</span></h1>
+        <p class="subtitle"><span id="wordCount">載入詞語庫中…</span> · 支援安裝及離線使用<br><span class="source-note">所有詞語選自《實施綱要》朗讀作品。</span></p>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="screen active" id="homeScreen">
+          <h2>每日一記</h2>
+          <p class="lead">每天記詞語，考試不心虛。</p>
+          <div class="home-actions home-actions-3">
+            <button class="btn" id="goPractice">開始練習</button>
+            <button class="btn secondary" id="goReview">重溫難點詞語</button>
+            <div>
+              <button class="btn master" id="goMastered" style="width:100%">已掌握詞庫*</button>
+              <p class="freq-note">*加入此詞庫的字詞，將不會顯示於練習字詞庫中。</p>
+            </div>
+          </div>
+
+          <div class="guide-grid">
+            <section class="guide guide-compact">
+              <strong>把網頁加入手機主畫面</strong>
+              <details>
+                <summary>iPhone / iPad（Safari）</summary>
+                <ol>
+                  <li>用 Safari 打開本網頁。</li>
+                  <li>點擊底部「分享」按鈕。</li>
+                  <li>選擇「加入主畫面」，再點擊「加入」。</li>
+                </ol>
+              </details>
+              <details>
+                <summary>Android（Chrome）</summary>
+                <ol>
+                  <li>用 Chrome 打開本網頁。</li>
+                  <li>點擊右上角三點選單。</li>
+                  <li>選擇「加入主畫面」或「安裝應用程式」。</li>
+                </ol>
+              </details>
+            </section>
+
+            <section class="guide guide-compact voice-guide">
+              <strong>AI 發音無法發出普通話？請先設定：</strong>
+              <details>
+                <summary>iOS / iPhone</summary>
+                <ol>
+                  <li>到「設定」→「輔助使用」→「朗讀內容」。</li>
+                  <li>進入「聲音」，選擇「中文（中國大陸）」或「普通話」聲音。</li>
+                  <li>如仍未生效，請用 Safari 開啟網頁並重新播放。</li>
+                </ol>
+              </details>
+              <details>
+                <summary>Android</summary>
+                <ol>
+                  <li>到「設定」搜尋「文字轉語音」或「TTS」。</li>
+                  <li>語言選「中文（中國大陸）」或普通話語音。</li>
+                  <li>回到 Chrome 重新開啟網頁後再播放。</li>
+                </ol>
+              </details>
+            </section>
+          </div>
+        </div>
+
+        <div class="screen" id="practiceSetupScreen">
+          <h2>今天練習</h2>
+          <p class="lead">請先選擇練習範圍，再選擇今天想練習的詞卡數量。系統會從所選範圍中隨機抽出詞語。</p>
+          <h3>練習範圍</h3>
+          <div class="range-grid" role="group" aria-label="練習範圍">
+            <button class="btn range-btn active" data-range="all">所有詞語</button>
+            <button class="btn range-btn" data-range="normal">難點詞語</button>
+            <button class="btn range-btn" data-range="special">輕聲及兒化韻</button>
+            <button class="btn range-btn" data-range="freq">高頻字詞*</button>
+          </div>
+          <p class="freq-note freq-note-left">*根據《實施綱要・用字統計表》篩選出的高頻核心漢字。</p>
+          <h3>練習數量</h3>
+          <div class="choice-grid">
+            <button class="btn" data-count="20">20 個</button>
+            <button class="btn" data-count="30">30 個</button>
+            <div class="count-box">
+              <input id="customCount" type="number" inputmode="numeric" min="1" placeholder="自定數量" aria-label="自行輸入練習數量" />
+              <button class="btn small" id="startCustom">開始</button>
+            </div>
+          </div>
+          <div class="mini-actions"><button class="btn ghost small" data-screen="homeScreen">回到主頁面</button></div>
+        </div>
+
+        <div class="screen" id="cardScreen">
+          <div class="topbar">
+            <div class="mode-label" id="modeName">今天練習</div>
+            <div class="progress" id="progressText">1 / 20</div>
+          </div>
+          <div class="card-wrap">
+            <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="詞卡，按一下可翻面">
+              <div class="face front">
+                <div class="term" id="frontTerm">規矩</div>
+                <div class="hint">按詞卡查看拼音及發音</div>
+              </div>
+              <div class="face back">
+                <div>
+                  <div class="pinyin" id="backPinyin">guī ju</div>
+                  <div class="pinyin-note" id="pinyinNote"></div>
+                  <div class="back-term" id="backTerm">規矩</div>
+                  <button class="btn small speak" id="speakBtn" type="button">播放示範發音</button>
+                </div>
+                <div class="hint">再次按詞卡返回正面</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-nav">
+            <button class="btn ghost" id="prevBtn">上一個</button>
+            <button class="btn" id="nextBtn">下一個</button>
+          </div>
+          <div class="card-actions">
+            <button class="btn secondary" id="saveBtn">存入難點詞語庫</button>
+            <button class="btn master" id="masterBtn">我記住了</button>
+          </div>
+          <div class="mini-actions">
+            <button class="btn ghost small" data-screen="practiceSetupScreen">回到今天練習</button>
+            <button class="btn ghost small" data-screen="homeScreen">回到主頁面</button>
+          </div>
+        </div>
+
+        <div class="screen" id="finishScreen">
+          <div class="celebration-card" role="status" aria-live="polite">
+            <div class="confetti" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="celebration-badge">✓</div>
+            <h2>太棒了！</h2>
+            <p class="lead" id="finishText">你已完成今天的學習任務。</p>
+          </div>
+          <div class="finish-actions celebration-actions">
+            <button class="btn" data-screen="practiceSetupScreen">繼續練習</button>
+            <button class="btn secondary" id="finishReview">重溫難點詞語庫</button>
+            <button class="btn ghost" data-screen="homeScreen">回到主頁面</button>
+          </div>
+        </div>
+
+        <div class="screen" id="reviewScreen">
+          <h2>重溫難點詞語</h2>
+          <div id="reviewContent"></div>
+          <div class="mini-actions"><button class="btn ghost small" data-screen="homeScreen">回到主頁面</button></div>
+        </div>
+
+        <div class="screen" id="masteredScreen">
+          <h2>已掌握詞庫</h2>
+          <div id="masteredContent"></div>
+          <div class="mini-actions"><button class="btn ghost small" data-screen="homeScreen">回到主頁面</button></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="pronunciation-notes">
+        <span>難點詞語及高頻字詞配備 AI 語音示範；輕聲及兒化韻詞語配備真人發音示範。</span>
+        <span>標準注音請參考《普通話水平測試實施綱要（2021年版）》以及《現代漢語詞典》。</span>
+      </div>
+      <div class="copyright-line">網頁僅供機構内部使用。普通話培訓測試中心版權所有。 2026.V1</div>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./words.js"></script>
+  <script src="./audio-map.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const screens = ["homeScreen","practiceSetupScreen","cardScreen","finishScreen","reviewScreen","masteredScreen"];
+    const savedKey = "psc-difficult-words-v1";
+    const masteredKey = "psc-mastered-words-v1";
+    let session = [];
+    let index = 0;
+    let mode = "practice";
+    let selectedRange = "all";
+    let toastTimer = null;
+    let audioPlayer = null;
+    let cachedVoices = [];
+
+    function normalWords(){ return Array.isArray(window.NORMAL_WORDS) ? window.NORMAL_WORDS : []; }
+    function specialWords(){ return Array.isArray(window.SPECIAL_WORDS) ? window.SPECIAL_WORDS : []; }
+    function freqWords(){ return Array.isArray(window.FREQ_WORDS) ? window.FREQ_WORDS : []; }
+    function words(){ return Array.isArray(window.WORD_BANK) ? window.WORD_BANK : [...normalWords(), ...specialWords()]; }
+    function audioFor(item){
+      if(item.audio) return item.audio;
+      const map = window.AUDIO_MAP || {};
+      return map[item.term] || map[`${item.term} ${item.pinyin}`] || "";
+    }
+    function refreshVoices(){
+      if ("speechSynthesis" in window && speechSynthesis.getVoices) {
+        cachedVoices = speechSynthesis.getVoices();
+      }
+    }
+    function pickMandarinVoice(){
+      refreshVoices();
+      const voices = cachedVoices || [];
+      const zhCN = voices.find(v => /zh[-_]?CN/i.test(v.lang));
+      if (zhCN) return zhCN;
+      const mandarinName = voices.find(v => /(Mandarin|普通话|普通話|Putonghua|Ting-Ting|Tingting|Sin-ji|Mei-Jia|Li-mu)/i.test(v.name));
+      if (mandarinName) return mandarinName;
+      const zhAny = voices.find(v => /^zh/i.test(v.lang));
+      return zhAny || null;
+    }
+    function wordsByRange(range){
+      if(range === "normal") return normalWords();
+      if(range === "special") return specialWords();
+      if(range === "freq") return freqWords();
+      return words();
+    }
+    function saved(){
+      try { return JSON.parse(localStorage.getItem(savedKey) || "[]"); }
+      catch { return []; }
+    }
+    function setSaved(list){ localStorage.setItem(savedKey, JSON.stringify(list)); }
+    function showToast(text){
+      clearTimeout(toastTimer);
+      const t = $("toast");
+      t.textContent = text;
+      t.classList.add("show");
+      toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
+    }
+    function showScreen(id){
+      screens.forEach(s => $(s).classList.toggle("active", s === id));
+      if(id === "reviewScreen") renderReviewSetup();
+      if(id === "masteredScreen") renderMastered();
+    }
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+      return a;
+    }
+    function rangeLabel(range){
+      if(range === "normal") return "難點詞語";
+      if(range === "special") return "輕聲及兒化韻";
+      if(range === "freq") return "高頻字詞";
+      return "所有詞語";
+    }
+    function startPractice(count){
+      const bank = wordsByRange(selectedRange).filter(x => !isMastered(x));
+      if(!bank.length){ showToast("此範圍暫時沒有可練習的詞語"); return; }
+      const n = Math.max(1, Math.min(Number(count)||1, bank.length));
+      session = shuffle(bank).slice(0, n);
+      index = 0;
+      mode = "practice";
+      $("modeName").textContent = `${rangeLabel(selectedRange)} · 今天練習`;
+      renderCard();
+      showScreen("cardScreen");
+    }
+    function startReview(){
+      const list = saved().filter(x => !isMastered(x));
+      if(!list.length){ showScreen("reviewScreen"); return; }
+      session = shuffle(list);
+      index = 0;
+      mode = "review";
+      $("modeName").textContent = "重溫難點詞語";
+      renderCard();
+      showScreen("cardScreen");
+    }
+    function current(){ return session[index]; }
+    function renderCard(){
+      const item = current();
+      if(!item){ showScreen(mode === "review" ? "reviewScreen" : "finishScreen"); return; }
+      $("flashcard").classList.remove("flipped");
+      $("frontTerm").textContent = item.term;
+      $("backTerm").textContent = item.term;
+      $("backPinyin").textContent = item.pinyin || "—";
+      $("pinyinNote").textContent = item.note || "";
+      $("progressText").textContent = `${index + 1} / ${session.length}`;
+      $("saveBtn").textContent = isSaved(item) ? "已存入難點詞語庫" : "存入難點詞語庫";
+      $("masterBtn").textContent = "我記住了";
+      $("speakBtn").textContent = item.audioMode === "recording" && !audioFor(item) ? "錄音稍後提供" : "播放示範發音";
+      $("prevBtn").disabled = index <= 0;
+    }
+    function isSaved(item){ return saved().some(x => x.term === item.term && x.pinyin === item.pinyin); }
+    function saveCurrent(){
+      const item = current(); if(!item) return;
+      const list = saved();
+      if(list.some(x => x.term === item.term && x.pinyin === item.pinyin)){
+        showToast("此詞語已在難點詞語庫");
+        return;
+      }
+      list.unshift(item);
+      setSaved(list);
+      $("saveBtn").textContent = "已存入難點詞語庫";
+      showToast("已存入難點詞語庫");
+    }
+    function prevCard(){
+      if(index <= 0){ showToast("已經是第一個詞語"); return; }
+      index -= 1;
+      renderCard();
+    }
+    function nextCard(){
+      index += 1;
+      if(index >= session.length){
+        if(mode === "review") showScreen("reviewScreen");
+        else {
+          $("finishText").textContent = `你已完成 ${session.length} 個詞語的學習任務。`;
+          showScreen("finishScreen");
+        }
+      } else renderCard();
+    }
+    function speakCurrent(ev){
+      if(ev) ev.stopPropagation();
+      const item = current(); if(!item) return;
+      if(item.audioMode === "recording"){
+        const audioPath = audioFor(item);
+        if(audioPath){
+          if(audioPlayer) audioPlayer.pause();
+          audioPlayer = new Audio(audioPath);
+          audioPlayer.play().catch(() => showToast("錄音播放失敗"));
+        } else {
+          showToast("輕聲及兒化韻錄音稍後提供");
+        }
+        return;
+      }
+      if(!("speechSynthesis" in window)) { showToast("此瀏覽器未支援語音示範"); return; }
+      speechSynthesis.cancel();
+      refreshVoices();
+      const speak = () => {
+        const u = new SpeechSynthesisUtterance(item.term);
+        u.lang = "zh-CN";
+        u.rate = 0.82;
+        u.pitch = 1;
+        u.volume = 1;
+        const preferred = pickMandarinVoice();
+        if(preferred) u.voice = preferred;
+        speechSynthesis.speak(u);
+      };
+      if(!cachedVoices.length && speechSynthesis.getVoices){
+        setTimeout(speak, 180);
+      } else {
+        speak();
+      }
+    }
+    function renderReviewSetup(){
+      const list = saved();
+      const box = $("reviewContent");
+      if(!list.length){
+        box.innerHTML = `<div class="empty">暫時未有已存入的難點詞語。你可以先進入「開始練習」，把不熟悉的詞語存入難點詞語庫。</div>`;
+        return;
+      }
+      box.innerHTML = `
+        <p class="lead">目前已存入 <strong>${list.length}</strong> 個難點詞語。你可以開始重溫，或清空本機儲存的難點詞語庫。</p>
+        <div class="home-actions">
+          <button class="btn" id="startReviewNow">開始重溫</button>
+          <button class="btn secondary" id="clearSaved">清空難點詞語庫</button>
+        </div>`;
+      $("startReviewNow").addEventListener("click", startReview);
+      $("clearSaved").addEventListener("click", () => {
+        if(confirm("確定清空本機儲存的難點詞語庫？")) { setSaved([]); renderReviewSetup(); showToast("已清空難點詞語庫"); }
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      const target = e.target.closest("[data-screen]");
+      if(target) showScreen(target.dataset.screen);
+      const countTarget = e.target.closest("[data-count]");
+      if(countTarget) startPractice(countTarget.dataset.count);
+      const rangeTarget = e.target.closest("[data-range]");
+      if(rangeTarget){
+        selectedRange = rangeTarget.dataset.range;
+        document.querySelectorAll("[data-range]").forEach(btn => btn.classList.toggle("active", btn === rangeTarget));
+      }
+    });
+    $("goPractice").addEventListener("click", () => showScreen("practiceSetupScreen"));
+    $("goMastered").addEventListener("click", () => showScreen("masteredScreen"));
+    $("goReview").addEventListener("click", () => showScreen("reviewScreen"));
+    $("finishReview").addEventListener("click", () => showScreen("reviewScreen"));
+    $("startCustom").addEventListener("click", () => startPractice($("customCount").value));
+    $("customCount").addEventListener("keydown", (e) => { if(e.key === "Enter") startPractice($("customCount").value); });
+    $("flashcard").addEventListener("click", () => $("flashcard").classList.toggle("flipped"));
+    $("flashcard").addEventListener("keydown", (e) => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); $("flashcard").classList.toggle("flipped"); }});
+    $("speakBtn").addEventListener("click", speakCurrent);
+    $("prevBtn").addEventListener("click", prevCard);
+    $("nextBtn").addEventListener("click", nextCard);
+    $("saveBtn").addEventListener("click", saveCurrent);
+    $("masterBtn").addEventListener("click", masterCurrent);
+
+    $("wordCount").textContent = `已載入 ${words().length + freqWords().length} 個詞語（難點詞語 ${normalWords().length} 個，輕聲及兒化韻 ${specialWords().length} 個，高頻字詞 ${freqWords().length} 個）`;
+    refreshVoices();
+    if ("speechSynthesis" in window) {
+      speechSynthesis.onvoiceschanged = refreshVoices;
+    }
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+    }
+    function masteredList(){ try { return JSON.parse(localStorage.getItem(masteredKey) || "[]"); } catch { return []; } }
+    function setMastered(list){ localStorage.setItem(masteredKey, JSON.stringify(list)); }
+    function isMastered(item){ return masteredList().some(x => x.term === item.term && x.pinyin === item.pinyin); }
+    function masterCurrent(){
+      const item = current(); if(!item) return;
+      const inDifficult = saved().some(x => x.term === item.term && x.pinyin === item.pinyin);
+      let origin;
+      if(mode === "review" || inDifficult) origin = "difficult";
+      else if(selectedRange === "freq" || item.category === "freq") origin = "freq";
+      else origin = "practice";
+      const list = masteredList();
+      if(!list.some(x => x.term === item.term && x.pinyin === item.pinyin)){
+        list.unshift(Object.assign({}, item, { _origin: origin }));
+        setMastered(list);
+      }
+      if(inDifficult){
+        setSaved(saved().filter(x => !(x.term === item.term && x.pinyin === item.pinyin)));
+      }
+      showToast("\u5df2\u52a0\u5165\u5df2\u638c\u63e1\u8a5e\u5eab");
+      nextCard();
+    }
+    function escapeHtml(v){ return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    function renderMastered(){
+      const list = masteredList();
+      const box = $("masteredContent");
+      if(!list.length){
+        box.innerHTML = `<div class="empty">\u5c1a\u672a\u6709\u5df2\u638c\u63e1\u7684\u5b57\u8a5e\u3002\u5728\u7df4\u7fd2\u6216\u91cd\u6eab\u6642\uff0c\u6309\u300c\u5df2\u638c\u63e1\u300d\u6216\u300c\u6211\u8a18\u4f4f\u4e86\u300d\u5373\u53ef\u628a\u5b57\u8a5e\u6536\u9032\u9019\u88e1\u3002</div>`;
+        return;
+      }
+      box.innerHTML = `<p class="lead">\u76ee\u524d\u5df2\u638c\u63e1 <strong>${list.length}</strong> \u500b\u5b57\u8a5e\u3002\u6309\u300c\u518d\u7df4\u7df4\u300d\u53ef\u628a\u5b57\u8a5e\u653e\u56de\u539f\u8a5e\u5eab\u518d\u6b21\u7df4\u7fd2\u3002</p><div class="mastered-list">` + list.map((it, i) => `<div class="mastered-row"><div class="mastered-info"><span class="mw-term">${escapeHtml(it.term)}</span><span class="mw-pinyin">${escapeHtml(it.pinyin || "")}</span></div><button class="btn small master" data-relearn="${i}">\u518d\u7df4\u7df4</button></div>`).join("") + `</div>`;
+      box.querySelectorAll("[data-relearn]").forEach(btn => {
+        btn.addEventListener("click", () => relearn(Number(btn.dataset.relearn)));
+      });
+    }
+    function relearn(i){
+      const list = masteredList();
+      const item = list[i];
+      if(!item) return;
+      list.splice(i, 1);
+      setMastered(list);
+      if(item._origin === "difficult"){
+        const sv = saved();
+        if(!sv.some(x => x.term === item.term && x.pinyin === item.pinyin)){
+          const clone = Object.assign({}, item);
+          delete clone._origin;
+          sv.unshift(clone);
+          setSaved(sv);
+        }
+      }
+      showToast("\u5df2\u653e\u56de\u539f\u8a5e\u5eab\uff0c\u53ef\u518d\u6b21\u7df4\u7fd2");
+      renderMastered();
+    }
+  </script>
+</body>
+</html>
