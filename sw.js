@@ -1,4 +1,4 @@
-const CACHE_NAME = "psc-word-card-v27";
+const CACHE_NAME = "psc-word-card-v28";
 const ASSETS = [
   "./",
   "./index.html",
